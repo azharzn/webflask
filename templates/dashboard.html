@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .hero {
+            background: linear-gradient(160deg, #ff9800, #ff5722);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: background 1s ease;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            transform: skewY(-5deg);
+            z-index: 0;
+            transition: transform 1s ease;
+        }
+        .hero:hover {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+        }
+        .hero:hover::before {
+            transform: skewY(5deg);
+        }
+        .hero h1, .hero p {
+            position: relative;
+            z-index: 1;
+        }
+        .jumbotron-custom {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .jumbotron-custom:hover {
+            transform: scale(1.02);
+        }
+        .card {
+            color:black;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        a .card .card-title,
+        .card .card-text {
+            text-decoration: none;
+        }
+        .card .card-title:hover,
+        .card .card-text:hover,
+        .card .card-title:active,
+        .card .card-text:active {
+            text-decoration: none;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        a:hover,
+        a:active {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero">
+    <div class="container">
+        <h1>Selamat Datang {% if username %}{{ username }}{% else %}Pengunjung{% endif %} di Website Kami</h1>
+        <p>Temukan berbagai informasi dan layanan yang kami tawarkan.</p>
+    </div>
+</header>
+
+<div class="container mt-5">
+    <div class="jumbotron jumbotron-custom text-center">
+        {% if username %}
+        <h2 class="display-4">Informasi Menarik</h2>
+        <p class="lead">Kami menyediakan berbagai informasi terbaru dan terupdate yang akan memberikan wawasan baru
+            .</p>
+        <div class="row mt-4">
+            <!-- Card 1 -->
+            <div class="col-md-4 mb-4">
+                <a href="{{ url_for('Detail', img_name='img1') }}">
+                    <div class="card">
+                        <img src="static/img/img1.jpg" class="card-img-top" alt="Image 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Cabin</h5>
+                            <p class="card-text">Find peace in a luxury cabin nestled in the middle of a frozen
+                                forest.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4 mb-4">
+                <a href="{{ url_for('Detail', img_name='img2') }}">
+                    <div class="card">
+                        <img src="static/img/img2.jpg" class="card-img-top" alt="Image 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Nascar</h5>
+                            <p class="card-text">Watch the exciting action of the best drivers in the world in Nascar
+                                racing.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4 mb-4">
+                <a href="{{ url_for('Detail', img_name='img3') }}">
+                    <div class="card">
+                        <img src="static/img/img3.jpg" class="card-img-top" alt="Image 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Old Tram</h5>
+                            <p class="card-text">Enjoy the unique experience of riding the historic trams.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <h2 class="display-4">Login Sekarang</h2>
+        <p class="lead">Cari informasi yang menarik minat anda.</p>
+        <a class="btn btn-outline-dark btn-lg" href="/masuk" role="button"> <i class="fas fa-user"></i> Login</a>
+        {% endif %}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
