@@ -5,146 +5,310 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Utama</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+          integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
         body {
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
         }
-        .hero {
-            background: linear-gradient(160deg, #ff9800, #ff5722);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-            position: relative;
+
+        .navbar {
+            padding: 15px 10px;
+            background: #fff;
+            border: none;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #7386D5;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        #sidebar.active {
+            min-width: 80px;
+            max-width: 80px;
             overflow: hidden;
-            transition: background 1s ease;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.1);
-            transform: skewY(-5deg);
-            z-index: 0;
-            transition: transform 1s ease;
+
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background: #6d7fcc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .hero:hover {
-            background: linear-gradient(135deg, #ff9800, #ff5722);
+
+
+        #sidebar.active .sidebar-header span {
+            display: none;
         }
-        .hero:hover::before {
-            transform: skewY(5deg);
+
+        #sidebar .sidebar-header .fa-home {
+            display: none;
         }
-        .hero h1, .hero p {
-            position: relative;
-            z-index: 1;
+
+        #sidebar.active .sidebar-header .fa-home {
+            display: inline-block;
         }
-        .jumbotron-custom {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+
+        #sidebar ul.components {
+            padding: 20px 0;
         }
-        .jumbotron-custom:hover {
-            transform: scale(1.02);
-        }
-        .card {
-            color:black;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        .card:hover {
-            transform: scale(1.02);
-        }
-        a .card .card-title,
-        .card .card-text {
-            text-decoration: none;
-        }
-        .card .card-title:hover,
-        .card .card-text:hover,
-        .card .card-title:active,
-        .card .card-text:active {
-            text-decoration: none;
-        }
-        a {
+
+        #sidebar ul li a {
+            padding: 10px;
+            font-size: 1.1em;
+            display: block;
+            color: #fff;
+            font-size:20px;
             text-decoration: none;
         }
 
-        a:hover,
-        a:active {
-            text-decoration: none;
+        #sidebar ul li a:hover {
+            color: #7386D5;
+            background: #fff;
+        }
+
+        #sidebar ul li.active > a {
+            color: #fff;
+            background: #6d7fcc;
+        }
+
+        #sidebar ul li a i {
+            font-size:25px;
+            margin-right: 10px;
+        }
+
+        #sidebar.active ul li a {
+            text-align: center;
+        }
+
+        #sidebar.active ul li a i {
+            position:relative;
+            left:8px;
+        }
+
+        #sidebar.active ul li a span {
+            display: none;
+        }
+
+        #content {
+            width: 100%;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -250px;
+            }
+
+            #sidebar.active {
+                margin-left: 0;
+            }
+        }
+        .isi{
+        margin-top:20px;
+        }
+        .list-group{
+        width:30%;
         }
     </style>
 </head>
 <body>
-
-<header class="hero">
-    <div class="container">
-        <h1>Selamat Datang {% if username %}{{ username }}{% else %}Pengunjung{% endif %} di Website Kami</h1>
-        <p>Temukan berbagai informasi dan layanan yang kami tawarkan.</p>
-    </div>
-</header>
-
-<div class="container mt-5">
-    <div class="jumbotron jumbotron-custom text-center">
-        {% if username %}
-        <h2 class="display-4">Informasi Menarik</h2>
-        <p class="lead">Kami menyediakan berbagai informasi terbaru dan terupdate yang akan memberikan wawasan baru
-            .</p>
-        <div class="row mt-4">
-            <!-- Card 1 -->
-            <div class="col-md-4 mb-4">
-                <a href="{{ url_for('Detail', img_name='img1') }}">
-                    <div class="card">
-                        <img src="static/img/img1.jpg" class="card-img-top" alt="Image 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Cabin</h5>
-                            <p class="card-text">Find peace in a luxury cabin nestled in the middle of a frozen
-                                forest.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- Card 2 -->
-            <div class="col-md-4 mb-4">
-                <a href="{{ url_for('Detail', img_name='img2') }}">
-                    <div class="card">
-                        <img src="static/img/img2.jpg" class="card-img-top" alt="Image 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Nascar</h5>
-                            <p class="card-text">Watch the exciting action of the best drivers in the world in Nascar
-                                racing.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- Card 3 -->
-            <div class="col-md-4 mb-4">
-                <a href="{{ url_for('Detail', img_name='img3') }}">
-                    <div class="card">
-                        <img src="static/img/img3.jpg" class="card-img-top" alt="Image 3">
-                        <div class="card-body">
-                            <h5 class="card-title">Old Tram</h5>
-                            <p class="card-text">Enjoy the unique experience of riding the historic trams.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+<div class="wrapper">
+    <nav id="sidebar" class="active">
+        <div class="sidebar-header">
+            <h3>
+                <i class="fa-solid fa-home"></i>
+                <span>Informasi<br> Mahasiswa</span>
+            </h3>
         </div>
-        {% else %}
-        <h2 class="display-4">Login Sekarang</h2>
-        <p class="lead">Cari informasi yang menarik minat anda.</p>
-        <a class="btn btn-outline-dark btn-lg" href="/masuk" role="button"> <i class="fas fa-user"></i> Login</a>
-        {% endif %}
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#" data-target="#datdir">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span>Data Diri</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-target="#krs">
+                    <i class="fa-solid fa-table-list"></i>
+                    <span>KRS</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-target="#nilai">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Daftar Nilai</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-target="#laporan">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Laporan Nilai</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                Halo {{ nama }}
+<a href="/" type="button" class="btn btn-danger"><i class="fa-solid fa-chevron-left"></i> Kembali</a>
+            </div>
+        </nav>
+        <div class="container-fluid isi" id="datdir">
+            <h2>Data Diri</h2>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <strong>Nama</strong>
+                        </div>
+                        <div class="col-8">: {{ nama }}
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <strong>NIM</strong>
+                        </div>
+                        <div class="col-8">: {{ nim }}
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <strong>Jurusan</strong>
+                        </div>
+                        <div class="col-8">: {{ jurusan }}
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <strong>Email</strong>
+                        </div>
+                        <div class="col-8">: {{ email }}@gmail.com
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="container-fluid isi" id="krs">
+            <h2>KRS</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Kode</th>
+                    <th scope="col">Mata Kuliah</th>
+                    <th scope="col">SKS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">{{ kode }}</th>
+                    <td>{{ matkul }}</td>
+                    <td>{{ sks }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container-fluid isi" id="nilai">
+            <h2>Daftar Nilai</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Mata Kuliah</th>
+                    <th scope="col">SKS</th>
+                    <th scope="col">Nilai</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">{{ matkul }}</th>
+                    <td>{{ sks }}</td>
+                    <td>{{ nilai }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container-fluid isi" id="laporan">
+            <h2>Laporan Nilai</h2>
+            <ul>
+                <li>
+                    <div class="row">
+                        <div class="col-2">
+                            <strong>IPK</strong>
+                        </div>
+                        <div class="col-10">: {{ ipk }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-2">
+                            <strong>Total SKS</strong>
+                        </div>
+                        <div class="col-10">: {{ sks }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-2">
+                            <strong>Status</strong>
+                        </div>
+                        <div class="col-10">: Aktif
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Sidebar toggle
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+
+        // Handle menu clicks
+        $('#sidebar a').on('click', function (e) {
+            e.preventDefault();
+            var target = $(this).data('target');
+
+            // Hide all sections and show the target
+            $('.isi').addClass('d-none');
+            $(target).removeClass('d-none');
+        });
+
+        // Default: Show datdir
+        $('.isi').addClass('d-none');
+        $('#datdir').removeClass('d-none');
+    });
+</script>
 </body>
 </html>

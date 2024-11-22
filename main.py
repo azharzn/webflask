@@ -1,24 +1,23 @@
 from flask import Flask, render_template, request, url_for, redirect
 
 app = Flask(__name__)
-
-@app.route("/")
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('dashboard.html')
-
-@app.route('/masuk', methods = ['GET', 'POST'])
-def Login():
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+        nama = request.form.get('nama')
+        nim = request.form.get('nim')
+        jurusan = request.form.get('jurusan')
+        email = request.form.get('email')
+        kode = request.form.get('kode')
+        matkul = request.form.get('matkul')
+        sks = int(request.form.get('sks', 0))
+        nilai = float(request.form.get('nilai', 0.0))
+        ipk = 25/(nilai*sks)
 
-        return render_template('dashboard.html', username=username)
-    return render_template('login.html')
+        return render_template('dashboard.html', nama=nama, nim=nim, jurusan=jurusan, email=email, kode=kode,
+                               matkul=matkul, sks=sks, nilai=nilai, ipk=ipk)
+    return render_template('data.html')
 
-@app.route('/detail')
-def Detail():
-    img_name = request.args.get('img_name', 'default_img')
-    return render_template('detail.html', img_name=img_name)
 
 if __name__ == '__main__':
     app.run(debug=True)
