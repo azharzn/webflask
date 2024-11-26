@@ -1,0 +1,115 @@
+      body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+        }
+
+        .navbar {
+            padding: 15px 10px;
+            background: #fff;
+            border: none;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #7386D5;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        #sidebar.active {
+            min-width: 80px;
+            max-width: 80px;
+            overflow: hidden;
+        }
+
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background: #6d7fcc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        #sidebar.active .sidebar-header span {
+            display: none;
+        }
+
+        #sidebar .sidebar-header .fa-home {
+            display: none;
+        }
+
+        #sidebar.active .sidebar-header .fa-home {
+            display: inline-block;
+        }
+
+        #sidebar ul.components {
+            padding: 20px 0;
+        }
+
+        #sidebar ul li a {
+            padding: 10px;
+            font-size: 1.1em;
+            display: block;
+            color: #fff;
+            font-size:20px;
+            text-decoration: none;
+        }
+
+        #sidebar ul li a:hover {
+            color: #7386D5;
+            background: #fff;
+        }
+
+        #sidebar ul li.active > a {
+            color: #fff;
+            background: #6d7fcc;
+        }
+
+        #sidebar ul li a i {
+            font-size:25px;
+            margin-right: 10px;
+        }
+
+        #sidebar.active ul li a {
+            text-align: center;
+        }
+
+        #sidebar.active ul li a i {
+            position:relative;
+            left:8px;
+        }
+
+        #sidebar.active ul li a span {
+            display: none;
+        }
+
+        #content {
+            width: 100%;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -250px;
+            }
+
+            #sidebar.active {
+                margin-left: 0;
+            }
+        }
+        .isi{
+        margin-top:20px;
+        }
+        .list-group{
+        width:30%;
+        }
