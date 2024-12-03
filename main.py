@@ -13,7 +13,7 @@ def index():
         session['matkul'] = request.form.get('matkul')
         session['sks'] = int(request.form.get('sks', 0))
         session['nilai'] = float(request.form.get('nilai', 0.0))
-        session['ipk'] = 25 / (session['nilai'] * session['sks'])
+        session['ipk'] =  (session['nilai'] * session['sks']) / session['sks']
         session['status'] = 'Aktif' if session['ipk'] >= 2 else 'Non Aktif'
 
         return redirect(url_for('dashboard'))
