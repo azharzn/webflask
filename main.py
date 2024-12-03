@@ -14,6 +14,7 @@ def index():
         session['sks'] = int(request.form.get('sks', 0))
         session['nilai'] = float(request.form.get('nilai', 0.0))
         session['ipk'] = 25 / (session['nilai'] * session['sks'])
+        session['status'] = 'Aktif' if session['ipk'] >= 2 else 'Non Aktif'
 
         return redirect(url_for('dashboard'))
 
@@ -54,7 +55,8 @@ def laporan():
                                nama=session['nama'],
                                nim=session['nim'],
                                ipk=session['ipk'],
-                               sks=session['sks'])
+                               sks=session['sks'],
+                               status=session['status'])
     return redirect(url_for('index'))
 @app.route('/logout')
 def logout():
