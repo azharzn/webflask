@@ -1,50 +1,79 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Diri</title>
-</head>
-<body>
+{% extends 'header.html' %}
+{% set title = "Laporan Akademik" %}
 
-    {% include 'header.html' %}
-        <div class="container-fluid isi" >
-            <h2>Laporan Nilai</h2>
-            <ul>
-                <li>
-                    <div class="row">
-                        <div class="col-2">
-                            <strong>IPK</strong>
-                        </div>
-                        <div class="col-10">: {{ ipk }}
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="row">
-                        <div class="col-2">
-                            <strong>Total SKS</strong>
-                        </div>
-                        <div class="col-10">: {{ sks }}
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="row">
-                        <div class="col-2">
-                            <strong>Status</strong>
-                        </div>
-                        <div class="col-10">: {{ status }}
-                        </div>
-                    </div>
-                </li>
-            </ul>
+{% block content %}
+<h1 class="mb-4">Laporan Akademik</h1>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <p><strong>Total SKS:</strong> {{ total_sks }}</p>
+            <p><strong>IPK:</strong> {{ "%.2f"|format(ipk) }}</p>
+            <p><strong>Status:</strong> {{ status }}</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="card p-4">
+            <canvas id="courseChart" width="400" height="200"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                var ctx = document.getElementById('courseChart').getContext('2d');
+                var courseChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: {{ course_names|tojson }},
+                        datasets: [{
+                            label: 'Nilai Mata Kuliah',
+                            data: {{ course_values|tojson }},
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            fill: false,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Mata Kuliah'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Nilai'
+                                },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="static/js/main.js"></script>
-</body>
-</html>
+<h2 class="mt-5">Daftar Mata Kuliah</h2>
+<div class="card p-4">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Kode</th>
+            <th>Nama Mata Kuliah</th>
+            <th>SKS</th>
+            <th>Nilai</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.kode }}</td>
+            <td>{{ course.matkul }}</td>
+            <td>{{ course.sks }}</td>
+            <td>{{ course.nilai }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

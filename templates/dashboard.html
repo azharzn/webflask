@@ -1,59 +1,18 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Diri</title>
-</head>
-<body>
+{% extends 'header.html' %}
+{% set title = "Dashboard" %}
 
-    {% include 'header.html' %}
-        <div class="container-fluid isi">
-            <h2>Data Diri</h2>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <strong>Nama</strong>
-                        </div>
-                        <div class="col-8">: {{ nama }}
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <strong>NIM</strong>
-                        </div>
-                        <div class="col-8">: {{ nim }}
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <strong>Jurusan</strong>
-                        </div>
-                        <div class="col-8">: {{ jurusan }}
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <strong>Email</strong>
-                        </div>
-                        <div class="col-8">: {{ email }}@gmail.com
-                        </div>
-                    </div>
-                </li>
-            </ul>
+{% block content %}
+<h1 class="mb-4">Hari Yang Cerah, {{ username }}!</h1>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Data Diri</h5>
+                <hr style="opacity:1;">
+                <span class="card-text">Nama : {{ username }}</span><br>
+                <span class="card-text">Email : {{ email }}</span>
+            </div>
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="static/js/main.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,37 +1,51 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Diri</title>
-</head>
-<body>
+{% extends 'header.html' %}
+{% set title = "KRS" %}
 
-    {% include 'header.html' %}
-        <div class="container-fluid isi">
-            <h2>KRS</h2>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Kode</th>
-                    <th scope="col">Mata Kuliah</th>
-                    <th scope="col">SKS</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">{{ kode }}</th>
-                    <td>{{ matkul }}</td>
-                    <td>{{ sks }}</td>
-                </tr>
-                </tbody>
-            </table>
+{% block content %}
+<h1 class="mb-4">Tambah Mata Kuliah</h1>
+<div class="card p-4">
+    <form method="POST">
+        <div class="mb-3">
+            <label for="kode" class="form-label required">Kode Mata Kuliah</label>
+            <input type="text" class="form-control" id="kode" name="kode" required>
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="matkul" class="form-label required">Nama Mata Kuliah</label>
+            <input type="text" class="form-control" id="matkul" name="matkul" required>
+        </div>
+        <div class="mb-3">
+            <label for="sks" class="form-label required">SKS</label>
+            <input type="number" class="form-control" id="sks" name="sks" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="nilai" class="form-label required">Nilai</label>
+            <input type="number" class="form-control" id="nilai" name="nilai" step="0.01" min="0" max="4" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Tambah</button>
+    </form>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="static/js/main.js"></script>
-</body>
-</html>
+
+<h2 class="mt-5">Daftar Mata Kuliah</h2>
+<div class="card p-4 mt-3">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kode</th>
+                <th>Nama Mata Kuliah</th>
+                <th>SKS</th>
+                <th>Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.kode }}</td>
+                <td>{{ course.matkul }}</td>
+                <td>{{ course.sks }}</td>
+                <td>{{ course.nilai }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
